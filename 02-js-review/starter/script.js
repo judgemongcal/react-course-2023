@@ -177,3 +177,13 @@ const updatedBook = {
 };
 
 console.log(updatedBook);
+
+// Arrow Functions
+
+function getYear(str) {
+	return str.split("-")[0];
+}
+
+const getYear2 = (str) => str.split("-")[0];
+
+console.log(getYear(publicationDate), getYear2(publicationDate));
