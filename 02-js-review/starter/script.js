@@ -144,4 +144,36 @@ function getBook(id) {
 }
 
 // Destructuring
-const books = getBooks();
+const books = getBook(1);
+
+const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+	books;
+
+title;
+author;
+pages;
+publicationDate;
+genres;
+hasMovieAdaptation;
+
+const primaryGenre = genres[0];
+const secondaryGenre = genres[1];
+
+primaryGenre;
+
+const [primaryGenre2, secondaryGenre2, ...otherGenres] = genres; // Rest Operator
+
+console.log(primaryGenre2, secondaryGenre2, otherGenres);
+
+// Spread Operator
+
+const newGenres = [...genres, "epic fantasy"];
+console.log(newGenres);
+
+const updatedBook = {
+	...books,
+	mvoiePublicationDate: "2001-12-19",
+	pages: 1210,
+};
+
+console.log(updatedBook);
