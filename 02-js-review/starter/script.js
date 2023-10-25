@@ -260,3 +260,7 @@ const adventureBooks = books
 	.filter((book) => book.genres.includes("adventure"))
 	.map((book) => book.title);
 console.log(adventureBooks);
+
+// Array REDUCE Method
+const numOfPages = books.reduce((sum, book) => sum + book.pages, 0); // sum is the accumulator variable
+console.log(numOfPages);
