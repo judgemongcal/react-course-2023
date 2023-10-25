@@ -226,6 +226,37 @@ console.log(getTotalReview(books));
 
 */
 
+function getTotalReview(books) {
+	const goodRead = books.reviews?.goodreads.reviewsCount;
+	const libThing = books.reviews?.librarything?.reviewsCount ?? 0; // if JS can't find librarything, it will then assume that the value is null. It will assign the value of 0 instead (nullish coalescing)
+	return goodRead + libThing;
+}
+
 // Array MAP Method
 
 const books = getBooks();
+
+const x = [1, 2, 3, 4].map((el) => el * 2);
+console.log(x);
+
+const titles = books.map((book) => book.title);
+console.log(titles);
+
+const titleAndAuthor = books.map((book) => ({
+	title: book.title,
+	author: book.author,
+	reviews: getTotalReview(book),
+}));
+console.log(titleAndAuthor);
+
+// Array FILTER Method
+const longBooksWithMovie = books
+	.filter((book) => book.pages > 500)
+	.filter((book) => book.hasMovieAdaptation);
+
+console.log(longBooksWithMovie);
+
+const adventureBooks = books
+	.filter((book) => book.genres.includes("adventure"))
+	.map((book) => book.title);
+console.log(adventureBooks);
