@@ -143,6 +143,7 @@ function getBook(id) {
 	return data.find((d) => d.id === id);
 }
 
+/*
 // Destructuring
 const books = getBook(1);
 
@@ -216,9 +217,15 @@ const count = books.reviews.librarything.reviewsCount ?? "no data"; //returns 2n
 // Optional Chaining
 
 function getTotalReview(books) {
-	const goodRead = books.reviews.goodreads.reviewsCount;
-	const libThing = books.reviews.librarything?.reviewsCount ?? 0; // if JS can't find librarything, it will then assume that the value is null. It will assign the value of 0 instead (nullish coalescing)
+	const goodRead = books.reviews?.goodreads.reviewsCount;
+	const libThing = books.reviews?.librarything?.reviewsCount ?? 0; // if JS can't find librarything, it will then assume that the value is null. It will assign the value of 0 instead (nullish coalescing)
 	return goodRead + libThing;
 }
 
 console.log(getTotalReview(books));
+
+*/
+
+// Array MAP Method
+
+const books = getBooks();
