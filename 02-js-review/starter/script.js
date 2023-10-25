@@ -261,6 +261,15 @@ const adventureBooks = books
 	.map((book) => book.title);
 console.log(adventureBooks);
 
-// Array REDUCE Method
+// Array REDUCE Method - reduce an array into one value
 const numOfPages = books.reduce((sum, book) => sum + book.pages, 0); // sum is the accumulator variable
 console.log(numOfPages);
+
+// Array SORT Method - used to sort an array; NOT A FUNCTIONAL METHOD (mutates)
+const jumbled = [3, 7, 8, 2, 1, 4, 9, 0];
+const sorted = jumbled.slice().sort((a, b) => b - a); // use slice() to make a copy of the original array to preserve the orginal array from mutating when sort is used
+console.log(sorted);
+console.log(jumbled);
+
+const sortedByPages = books.slice().sort((a, b) => a.pages - b.pages);
+console.log(sortedByPages);
