@@ -187,3 +187,28 @@ function getYear(str) {
 const getYear2 = (str) => str.split("-")[0];
 
 console.log(getYear(publicationDate), getYear2(publicationDate));
+
+// Short-circuiting
+console.log(true && "Some thing");
+console.log(false && "Some thing");
+console.log(hasMovieAdaptation && "This book has a movie");
+
+// Falsy and Truthy for &&
+console.log("jonas" && "some string");
+console.log(0 && "some string");
+
+// Falsy and Truthy for ||
+console.log(true || "Some string");
+console.log(false || "Some string");
+
+console.log(books.translations.spanish);
+const spanishTranslation = books.translations.spanish || "NOT TRANSLATED";
+console.log(spanishTranslation);
+
+console.log(books.reviews.librarything.reviewsCount);
+const countWrong = books.reviews.librarything.reviewsCount || "no data";
+
+console.log(countWrong);
+
+// NULLISH COALESCING
+const count = books.reviews.librarything.reviewsCount ?? "no data"; //returns 2nd value if left value is null or undefined, but not if it is 0 or an empty string
