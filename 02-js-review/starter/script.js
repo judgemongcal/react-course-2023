@@ -212,3 +212,13 @@ console.log(countWrong);
 
 // NULLISH COALESCING
 const count = books.reviews.librarything.reviewsCount ?? "no data"; //returns 2nd value if left value is null or undefined, but not if it is 0 or an empty string
+
+// Optional Chaining
+
+function getTotalReview(books) {
+	const goodRead = books.reviews.goodreads.reviewsCount;
+	const libThing = books.reviews.librarything?.reviewsCount ?? 0; // if JS can't find librarything, it will then assume that the value is null. It will assign the value of 0 instead (nullish coalescing)
+	return goodRead + libThing;
+}
+
+console.log(getTotalReview(books));
