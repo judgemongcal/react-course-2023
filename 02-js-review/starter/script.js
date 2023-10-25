@@ -224,7 +224,7 @@ function getTotalReview(books) {
 
 console.log(getTotalReview(books));
 
-*/
+
 
 function getTotalReview(books) {
 	const goodRead = books.reviews?.goodreads.reviewsCount;
@@ -295,3 +295,12 @@ const booksAfterUpdate = booksAfterDelete.map((book) =>
 	book.id === 1 ? { ...book, pages: 12100 } : book,
 );
 console.log(booksAfterUpdate);
+*/
+
+// Async JS
+
+fetch("https://jsonplaceholder.typicode.com/todos/1")
+	.then((res) => res.json())
+	.then((data) => console.log(data));
+
+console.log("hello world");
