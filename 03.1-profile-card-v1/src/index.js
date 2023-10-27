@@ -4,7 +4,7 @@ import "./index.css";
 
 function App() {
 	return (
-		<div>
+		<div className="main-container">
 			<Info />
 			<Skillset />
 		</div>
@@ -14,7 +14,7 @@ function App() {
 const Info = (props) => {
 	return (
 		<div>
-			<h1>Judge Mongcal</h1>
+			<h1 className="name">Judge Mongcal</h1>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam auctor,
 				lacus a tempus accumsan, quam lorem ullamcorper mauris, sed rhoncus est

@@ -186,13 +186,31 @@ FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 /52 / 62 / 74 / 86 / 98
 */
 
+.name {
+	margin-bottom: 1.5rem;
+}
+
+.main-container {
+	display: flex;
+	justify-content: center;
+	align-items: left;
+	flex-direction: column;
+	width: 70%;
+	margin: auto auto;
+	border: 2px solid black;
+	padding: 2rem;
+}
+
 .flex-container {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-gap: 5px;
+	grid-template-rows: repeat(2, 1fr);
+	grid-gap: 10px;
+	margin-top: 1rem;
 }
 
 .skills {
-	padding: 0.5rem 0.75rem;
+	padding: 0.25rem 0.5rem;
 	border-radius: 5px;
+	text-align: center;
 }
