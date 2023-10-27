@@ -11,7 +11,7 @@ function App() {
 	);
 }
 
-const Info = (props) => {
+const Info = () => {
 	return (
 		<div>
 			<h1 className="name">Judge Mongcal</h1>
@@ -27,23 +27,25 @@ const Info = (props) => {
 	);
 };
 
-const Skillset = (props) => {
+const Skillset = () => {
 	return (
 		<div className="flex-container">
-			<Skills skill="HTML+CSS" bgColor="lightblue" />
-			<Skills skill="JavaScript" bgColor="gold" />
-			<Skills skill="React" bgColor="royalblue" />
-			<Skills skill="Git and GitHub" bgColor="orange" />
-			<Skills skill="Web Design" bgColor="lightgreen" />
+			<Skills skill="HTML+CSS" bgColor="lightblue" emoji="💪🏽" />
+			<Skills skill="JavaScript" bgColor="gold" emoji="💻" />
+			<Skills skill="React" bgColor="royalblue" emoji="👨🏻‍💻" />
+			<Skills skill="Git and GitHub" bgColor="orange" emoji="🧬" />
+			<Skills skill="Web Design" bgColor="lightgreen" emoji="🎨" />
 		</div>
 	);
 };
 
 const Skills = (props) => {
-	const style = { backgroundColor: props.bgColor };
+	// const style = { backgroundColor: props.bgColor };
 	return (
-		<p style={style} className="skills">
-			<strong>{props.skill}</strong>
+		<p className="skills" style={{ backgroundColor: props.bgColor }}>
+			<strong>
+				{props.skill} {props.emoji}
+			</strong>
 		</p>
 	);
 };

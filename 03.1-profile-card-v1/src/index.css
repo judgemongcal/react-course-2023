@@ -202,15 +202,19 @@ FONT SIZE SYSTEM (px)
 }
 
 .flex-container {
-	display: grid;
+	/* display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(2, 1fr);
-	grid-gap: 10px;
+	grid-template-rows: repeat(2, fr);
+	grid-gap: 10px; */
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
 	margin-top: 1rem;
+	align-items: center;
 }
 
 .skills {
-	padding: 0.25rem 0.5rem;
+	padding: 0.25rem 0.75rem;
 	border-radius: 5px;
 	text-align: center;
 }
