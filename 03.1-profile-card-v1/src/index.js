@@ -2,6 +2,39 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+const skills = [
+	{
+		skill: "HTML+CSS",
+		level: "Intermediate",
+		color: "#2662EA",
+	},
+	{
+		skill: "JavaScript",
+		level: "Intermediate",
+		color: "#EFD81D",
+	},
+	{
+		skill: "Web Design",
+		level: "Intermediate",
+		color: "#C3DCAF",
+	},
+	{
+		skill: "Git and GitHub",
+		level: "Intermediate",
+		color: "#E84F33",
+	},
+	{
+		skill: "React",
+		level: "Beginner",
+		color: "#60DAFB",
+	},
+	{
+		skill: "PostgreSQL",
+		level: "Beginner",
+		color: "#FF3B00",
+	},
+];
+
 function App() {
 	return (
 		<div className="main-container">
@@ -30,21 +63,29 @@ const Info = () => {
 const Skillset = () => {
 	return (
 		<div className="flex-container">
-			<Skills skill="HTML+CSS" bgColor="lightblue" emoji="💪🏽" />
-			<Skills skill="JavaScript" bgColor="gold" emoji="💻" />
-			<Skills skill="React" bgColor="royalblue" emoji="👨🏻‍💻" />
-			<Skills skill="Git and GitHub" bgColor="orange" emoji="🧬" />
-			<Skills skill="Web Design" bgColor="lightgreen" emoji="🎨" />
+			{skills.map((skill) => (
+				<Skills skillsProps={skill} key={skill.skill} />
+			))}
 		</div>
 	);
 };
 
-const Skills = (props) => {
+const Skills = ({ skillsProps }) => {
+	console.log(skillsProps.skill);
 	// const style = { backgroundColor: props.bgColor };
 	return (
-		<p className="skills" style={{ backgroundColor: props.bgColor }}>
+		<p className="skills" style={{ backgroundColor: skillsProps.color }}>
 			<strong>
-				{props.skill} {props.emoji}
+				{skillsProps.skill}
+				{/* {skillsProps.level === "Beginner"
+					? ` 👶🏻`
+					: skillsProps.level === "Intermediate"
+					? ` ✌🏼`
+					: ` 💪🏽`} */}
+
+				{skillsProps.level === "Beginner" && " 👶🏻"}
+				{skillsProps.level === "Intermediate" && " ✌🏼"}
+				{skillsProps.level === "Advance" && "💪🏽"}
 			</strong>
 		</p>
 	);
