@@ -111,17 +111,17 @@ const Menu = () => {
 	);
 };
 
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
 	// console.log(props);
-	if (props.pizzaObj.soldOut) return null;
+	if (pizzaObj.soldOut) return null;
 
 	return (
 		<li className="pizza">
-			<img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+			<img src={pizzaObj.photoName} alt={pizzaObj.name} />
 			<div>
-				<h3>{props.pizzaObj.name}</h3>
-				<p>{props.pizzaObj.ingredients}</p>
-				<p>{props.pizzaObj.price}</p>
+				<h3>{pizzaObj.name}</h3>
+				<p>{pizzaObj.ingredients}</p>
+				<p>{pizzaObj.price}</p>
 			</div>
 		</li>
 	);
@@ -161,10 +161,12 @@ const Footer = () => {
 	// return React.createElement("footer", null, "We're currently open!");
 };
 
-const Order = (props) => {
+const Order = ({ closeHour, openHour }) => {
 	return (
 		<div className="order">
-			<p>We are open until {props.closeHour}:00. Come visit us!</p>
+			<p>
+				We are open from {openHour}:00 until {closeHour}:00. Come visit us!
+			</p>
 			<button className="btn">Order Now</button>
 		</div>
 	);
