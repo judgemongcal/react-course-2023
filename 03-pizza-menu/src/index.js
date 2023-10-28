@@ -75,12 +75,24 @@ const Menu = () => {
 		<div className="menu">
 			<h2>Our Menu</h2>
 
-			{pizzasLength > 0 && (
+			{/* CONDITIONAL RENDERING WITH && */}
+			{/* {pizzasLength > 0 && (
 				<ul className="pizzas">
 					{pizzas.map((pizza) => (
 						<Pizza pizzaObj={pizza} key={pizza.name} />
 					))}
 				</ul>
+			)} */}
+
+			{/* CONDITIONAL RENDERING WITH TERNARY */}
+			{pizzasLength > 0 ? (
+				<ul className="pizzas">
+					{pizzas.map((pizza) => (
+						<Pizza pizzaObj={pizza} key={pizza.name} />
+					))}
+				</ul>
+			) : (
+				<p>We're still working on our menu. Please come back later!</p>
 			)}
 
 			{/* <Pizza
@@ -100,7 +112,7 @@ const Menu = () => {
 };
 
 function Pizza(props) {
-	console.log(props);
+	// console.log(props);
 	return (
 		<li className="pizza">
 			<img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
@@ -126,11 +138,16 @@ const Footer = () => {
 	// }
 	return (
 		<footer className="footer">
-			{isOpen && (
+			{isOpen ? (
 				<div className="order">
 					<p>We are open until {closeHour}:00. Come visit us!</p>
 					<button className="btn">Order Now</button>
 				</div>
+			) : (
+				<p>
+					We are currently closed. We're happy to serve you between {openHour} -{" "}
+					{closeHour}
+				</p>
 			)}
 		</footer>
 	);
