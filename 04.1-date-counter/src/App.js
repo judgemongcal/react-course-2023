@@ -11,6 +11,8 @@ export default function App() {
 function Counter() {
 	const [step, stepCnt] = useState(1);
 	const [days, daysCnt] = useState(1);
+	const date = new Date();
+	date.setDate(date.getDate() + days);
 	return (
 		<div className="flex">
 			<div className="btns">
@@ -23,7 +25,9 @@ function Counter() {
 				<span>Count: {days}</span>
 				<button onClick={() => daysCnt((days) => days + step)}>+</button>
 			</div>
-			<div className="main-text">{days} from today is Wed Jul 21, 2027.</div>
+			<div className="main-text">
+				{days} days from today is Wed {date.toDateString()}.
+			</div>
 		</div>
 	);
 }
