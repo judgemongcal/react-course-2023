@@ -14,15 +14,15 @@ function Counter() {
 	return (
 		<div className="flex">
 			<div>
-				<button>-</button>
+				<button onClick={() => stepCnt((step) => step - 1)}>-</button>
 				<span>Step: {step}</span>
-				<button>+</button>
+				<button onClick={() => stepCnt((step) => step + 1)}>+</button>
 			</div>
 
 			<div>
-				<button>-</button>
+				<button onClick={() => daysCnt((days) => days - 1)}>-</button>
 				<span>Count: {days}</span>
-				<button>+</button>
+				<button onClick={() => daysCnt((days) => days + 1)}>+</button>
 			</div>
 		</div>
 	);
