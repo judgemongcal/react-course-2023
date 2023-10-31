@@ -97,3 +97,18 @@ h3 {
 .close:hover {
 	color: #7950f2;
 }
+
+.flex {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.flex button {
+	font-size: 1.25rem;
+}
+
+.flex span {
+	font-size: 1.5rem;
+}
