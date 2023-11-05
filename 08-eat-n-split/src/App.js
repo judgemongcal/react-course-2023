@@ -51,7 +51,11 @@ export default function App() {
 	return (
 		<div className="app">
 			<div className="sidebar">
-				<FriendsList friends={friends} onSelect={handleSelectFriend} />
+				<FriendsList
+					friends={friends}
+					onSelect={handleSelectFriend}
+					selectedFriend={selectedFriend}
+				/>
 				{friendFormIsHidden && (
 					<FormAddFriend
 						onAddFriend={handleAddFriend}
@@ -67,19 +71,25 @@ export default function App() {
 	);
 }
 
-const FriendsList = ({ friends, onSelect }) => {
+const FriendsList = ({ friends, onSelect, selectedFriend }) => {
 	return (
 		<ul>
 			{friends.map((friend) => (
-				<Friend friend={friend} key={friend.id} onSelect={onSelect} />
+				<Friend
+					friend={friend}
+					key={friend.id}
+					onSelect={onSelect}
+					selectedFriend={selectedFriend}
+				/>
 			))}
 		</ul>
 	);
 };
 
-const Friend = ({ friend, onSelect }) => {
+const Friend = ({ friend, onSelect, selectedFriend }) => {
+	const isSelected = selectedFriend.id === friend.id;
 	return (
-		<li>
+		<li className={isSelected ? "selected" : ""}>
 			<img src={friend.image} alt={friend.name} />
 			<h3>{friend.name}</h3>
 			{friend.balance < 0 && (
@@ -99,7 +109,9 @@ const Friend = ({ friend, onSelect }) => {
 			{friend.balance === 0 && (
 				<p className="">You and {friend.name} are even</p>
 			)}
-			<Button onClick={() => onSelect(friend)}>Select</Button>
+			<Button onClick={() => onSelect(friend)}>
+				{isSelected ? `Close` : "Select"}
+			</Button>
 		</li>
 	);
 };
