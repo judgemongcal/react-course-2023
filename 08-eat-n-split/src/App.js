@@ -32,20 +32,24 @@ const Button = ({ children, onClick }) => {
 
 export default function App() {
 	const [friends, setFriends] = useState(initialFriends);
-	const [friendFormIsHidden, setFriendFormIsHidden] = useState(false);
+	const [showFriendForm, setShowFriendForm] = useState(false);
 	const [selectedFriend, setSelectedFriend] = useState(null);
 
-	function handleFriendFormIsHidden() {
-		setFriendFormIsHidden((show) => !show);
+	function handleshowFriendForm() {
+		setShowFriendForm((show) => !show);
 	}
 
 	function handleAddFriend(newFriend) {
 		setFriends((friends) => [...friends, newFriend]);
-		setFriendFormIsHidden(!friendFormIsHidden);
+		setShowFriendForm(false);
 	}
 
 	function handleSelectFriend(friend) {
-		setSelectedFriend(friend);
+		// setSelectedFriend(friend);
+		setSelectedFriend((selected) =>
+			selected?.id === friend.id ? null : friend,
+		);
+		setShowFriendForm(false);
 	}
 
 	return (
@@ -56,14 +60,14 @@ export default function App() {
 					onSelect={handleSelectFriend}
 					selectedFriend={selectedFriend}
 				/>
-				{friendFormIsHidden && (
+				{showFriendForm && (
 					<FormAddFriend
 						onAddFriend={handleAddFriend}
-						isFormHidden={friendFormIsHidden}
+						isFormHidden={showFriendForm}
 					/>
 				)}
-				<Button onClick={handleFriendFormIsHidden}>
-					{!friendFormIsHidden ? `Add Friend` : `Close`}
+				<Button onClick={handleshowFriendForm}>
+					{!showFriendForm ? `Add Friend` : `Close`}
 				</Button>
 			</div>
 			{selectedFriend && <FormSplitBill friend={selectedFriend} />}
@@ -87,7 +91,7 @@ const FriendsList = ({ friends, onSelect, selectedFriend }) => {
 };
 
 const Friend = ({ friend, onSelect, selectedFriend }) => {
-	const isSelected = selectedFriend.id === friend.id;
+	const isSelected = selectedFriend?.id === friend.id;
 	return (
 		<li className={isSelected ? "selected" : ""}>
 			<img src={friend.image} alt={friend.name} />
