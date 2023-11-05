@@ -33,6 +33,7 @@ const Button = ({ children, onClick }) => {
 export default function App() {
 	const [friends, setFriends] = useState(initialFriends);
 	const [friendFormIsHidden, setFriendFormIsHidden] = useState(false);
+	const [selectedFriend, setSelectedFriend] = useState(null);
 
 	function handleFriendFormIsHidden() {
 		setFriendFormIsHidden((show) => !show);
@@ -43,10 +44,14 @@ export default function App() {
 		setFriendFormIsHidden(!friendFormIsHidden);
 	}
 
+	function handleSelectFriend(friend) {
+		setSelectedFriend(friend);
+	}
+
 	return (
 		<div className="app">
 			<div className="sidebar">
-				<FriendsList friends={friends} />
+				<FriendsList friends={friends} onSelect={handleSelectFriend} />
 				{friendFormIsHidden && (
 					<FormAddFriend
 						onAddFriend={handleAddFriend}
@@ -57,22 +62,22 @@ export default function App() {
 					{!friendFormIsHidden ? `Add Friend` : `Close`}
 				</Button>
 			</div>
-			<FormSplitBill />
+			{selectedFriend && <FormSplitBill friend={selectedFriend} />}
 		</div>
 	);
 }
 
-const FriendsList = ({ friends }) => {
+const FriendsList = ({ friends, onSelect }) => {
 	return (
 		<ul>
 			{friends.map((friend) => (
-				<Friend friend={friend} key={friend.id} />
+				<Friend friend={friend} key={friend.id} onSelect={onSelect} />
 			))}
 		</ul>
 	);
 };
 
-const Friend = ({ friend }) => {
+const Friend = ({ friend, onSelect }) => {
 	return (
 		<li>
 			<img src={friend.image} alt={friend.name} />
@@ -94,7 +99,7 @@ const Friend = ({ friend }) => {
 			{friend.balance === 0 && (
 				<p className="">You and {friend.name} are even</p>
 			)}
-			<Button>Select</Button>
+			<Button onClick={() => onSelect(friend)}>Select</Button>
 		</li>
 	);
 };
@@ -145,10 +150,10 @@ const FormAddFriend = ({ onAddFriend, onHideForm }) => {
 	);
 };
 
-const FormSplitBill = () => {
+const FormSplitBill = ({ friend }) => {
 	return (
 		<form className="form-split-bill">
-			<h2>Split a bill with X</h2>
+			<h2>Split a bill with {friend.name}</h2>
 
 			<label>💵 Bill Value</label>
 			<input type="text" />
@@ -156,13 +161,13 @@ const FormSplitBill = () => {
 			<label>🤑 Your Expense</label>
 			<input type="text" />
 
-			<label>😎 X's Expense</label>
+			<label>😎 {friend.name}'s Expense</label>
 			<input type="text" disabled />
 
 			<label>🤑 Who is paying the Bill</label>
 			<select>
 				<option value="user">You</option>
-				<option value="friend">X</option>
+				<option value="friend">{friend.name}</option>
 			</select>
 
 			<Button>Split Bill</Button>
