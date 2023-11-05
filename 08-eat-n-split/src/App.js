@@ -22,13 +22,29 @@ const initialFriends = [
 	},
 ];
 
+const Button = ({ children, onClick }) => {
+	return (
+		<button className="button" onClick={onClick}>
+			{children}
+		</button>
+	);
+};
+
 export default function App() {
+	const [friendFormIsHidden, setFriendFormIsHidden] = useState(false);
+
+	function handleFriendFormIsHidden() {
+		setFriendFormIsHidden((show) => !show);
+	}
+
 	return (
 		<div className="app">
 			<div className="sidebar">
 				<FriendsList />
-				<FormAddFriend />
-				<Button>Add Friend</Button>
+				{friendFormIsHidden && <FormAddFriend />}
+				<Button onClick={handleFriendFormIsHidden}>
+					{!friendFormIsHidden ? `Add Friend` : `Close`}
+				</Button>
 			</div>
 			<FormSplitBill />
 		</div>
@@ -72,10 +88,6 @@ const Friend = ({ friend }) => {
 			<Button>Select</Button>
 		</li>
 	);
-};
-
-const Button = ({ children }) => {
-	return <button className="button">{children}</button>;
 };
 
 const FormAddFriend = () => {
