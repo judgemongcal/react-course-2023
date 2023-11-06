@@ -147,30 +147,25 @@ function SearchBox() {
 function WatchedBox({}) {
 	const [isOpen2, setIsOpen2] = useState(true);
 	const [watched, setWatched] = useState(tempWatchedData);
-	const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-	const avgUserRating = average(watched.map((movie) => movie.userRating));
-	const avgRuntime = average(watched.map((movie) => movie.runtime));
 
 	return (
 		<div className="box">
 			<Button isOpen={isOpen2} setIsOpen={setIsOpen2} />
 			{isOpen2 && (
 				<>
-					<Summary
-						watched={watched}
-						avgImdbRating={avgImdbRating}
-						avgUserRating={avgUserRating}
-						avgRuntime={avgRuntime}
-					/>
+					<Summary watched={watched} />
 
-					<MovieList watched={watched} />
+					<WatchedMovieList watched={watched} />
 				</>
 			)}
 		</div>
 	);
 }
 
-function Summary({ watched, avgImdbRating, avgUserRating, avgRuntime }) {
+function Summary({ watched }) {
+	const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
+	const avgUserRating = average(watched.map((movie) => movie.userRating));
+	const avgRuntime = average(watched.map((movie) => movie.runtime));
 	return (
 		<div className="summary">
 			<h2>Movies you watched</h2>
@@ -196,29 +191,35 @@ function Summary({ watched, avgImdbRating, avgUserRating, avgRuntime }) {
 	);
 }
 
-function MovieList({ watched }) {
+function WatchedMovieList({ watched }) {
 	return (
 		<ul className="list">
 			{watched.map((movie) => (
-				<li key={movie.imdbID}>
-					<img src={movie.Poster} alt={`${movie.Title} poster`} />
-					<h3>{movie.Title}</h3>
-					<div>
-						<p>
-							<span>⭐️</span>
-							<span>{movie.avgImdbRating}</span>
-						</p>
-						<p>
-							<span>🌟</span>
-							<span>{movie.avgUserRating}</span>
-						</p>
-						<p>
-							<span>⏳</span>
-							<span>{movie.avgRuntime} min</span>
-						</p>
-					</div>
-				</li>
+				<WatchedMovie key={movie.imdbID} movie={movie} />
 			))}
 		</ul>
+	);
+}
+
+function WatchedMovie({ movie }) {
+	return (
+		<li>
+			<img src={movie.Poster} alt={`${movie.Title} poster`} />
+			<h3>{movie.Title}</h3>
+			<div>
+				<p>
+					<span>⭐️</span>
+					<span>{movie.imdbRating}</span>
+				</p>
+				<p>
+					<span>🌟</span>
+					<span>{movie.userRating}</span>
+				</p>
+				<p>
+					<span>⏳</span>
+					<span>{movie.runtime} min</span>
+				</p>
+			</div>
+		</li>
 	);
 }
