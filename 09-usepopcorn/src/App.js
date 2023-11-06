@@ -55,19 +55,25 @@ export default function App() {
 	const [movies, setMovies] = useState(tempMovieData);
 	return (
 		<>
-			<NavBar movies={movies} />
-			<Main movies={movies} />
+			<NavBar>
+				<Search />
+				<NumResults movies={movies} />
+			</NavBar>
+			<Main>
+				<SearchBox>
+					<SearchResultItem movies={movies} />
+				</SearchBox>
+				<WatchedBox />
+			</Main>
 		</>
 	);
 }
 
-function NavBar({ movies }) {
-	const [query, setQuery] = useState("");
+function NavBar({ children }) {
 	return (
 		<nav className="nav-bar">
 			<Logo />
-			<Search query={query} setQuery={setQuery} />
-			<NumResults movies={movies} />
+			{children}
 		</nav>
 	);
 }
@@ -101,13 +107,8 @@ function NumResults({ movies }) {
 	);
 }
 
-function Main({ movies }) {
-	return (
-		<main className="main">
-			<SearchBox movies={movies} />
-			<WatchedBox />
-		</main>
-	);
+function Main({ children }) {
+	return <main className="main">{children}</main>;
 }
 
 function Button({ isOpen, setIsOpen }) {
@@ -118,35 +119,33 @@ function Button({ isOpen, setIsOpen }) {
 	);
 }
 
-function SearchBox({ movies }) {
+function SearchBox({ children }) {
 	const [isOpen1, setIsOpen1] = useState(true);
 
 	return (
 		<div className="box">
 			<Button isOpen={isOpen1} setIsOpen={setIsOpen1} />
-			{isOpen1 && (
-				<ul className="list">
-					{movies?.map((list) => (
-						<SearchResultItem list={list} key={list.imdbID} />
-					))}
-				</ul>
-			)}
+			{isOpen1 && children}
 		</div>
 	);
 }
 
-function SearchResultItem({ list }) {
+function SearchResultItem({ movies }) {
 	return (
-		<li>
-			<img src={list.Poster} alt={`${list.Title} poster`} />
-			<h3>{list.Title}</h3>
-			<div>
-				<p>
-					<span>🗓</span>
-					<span>{list.Year}</span>
-				</p>
-			</div>
-		</li>
+		<ul className="list">
+			{movies?.map((list) => (
+				<li key={list.imdbID}>
+					<img src={list.Poster} alt={`${list.Title} poster`} />
+					<h3>{list.Title}</h3>
+					<div>
+						<p>
+							<span>🗓</span>
+							<span>{list.Year}</span>
+						</p>
+					</div>
+				</li>
+			))}
+		</ul>
 	);
 }
 
