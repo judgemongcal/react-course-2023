@@ -1,4 +1,5 @@
 import "./index.css";
+import { useState } from "react";
 
 const tempMovieData = [
 	{
@@ -46,3 +47,160 @@ const tempWatchedData = [
 		userRating: 9,
 	},
 ];
+
+const average = (arr) =>
+	arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+
+export default function App() {
+	return (
+		<>
+			<NavBar />
+			<Main />
+		</>
+	);
+}
+
+function NavBar({ movies }) {
+	const [query, setQuery] = useState("");
+	return (
+		<nav className="nav-bar">
+			<Logo />
+			<Search query={query} setQuery={setQuery} />
+			<NumResults />
+		</nav>
+	);
+}
+
+function Logo() {
+	return (
+		<div className="logo">
+			<span role="img">🍿</span>
+			<h1>usePopcorn</h1>
+		</div>
+	);
+}
+
+function Search({ query, setQuery }) {
+	return (
+		<input
+			className="search"
+			type="text"
+			placeholder="Search movies..."
+			value={query}
+			onChange={(e) => setQuery(e.target.value)}
+		/>
+	);
+}
+
+function NumResults() {
+	return (
+		<p className="num-results">
+			Found <strong>0</strong> results
+		</p>
+	);
+}
+
+function Main() {
+	const [movies, setMovies] = useState(tempMovieData);
+	const [watched, setWatched] = useState(tempWatchedData);
+	const [isOpen1, setIsOpen1] = useState(true);
+	const [isOpen2, setIsOpen2] = useState(true);
+
+	const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
+	const avgUserRating = average(watched.map((movie) => movie.userRating));
+	const avgRuntime = average(watched.map((movie) => movie.runtime));
+
+	return (
+		<main className="main">
+			<SearchBox isOpen={isOpen1} setIsOpen={isOpen2} list={movies} />
+			<div className="box">
+				<button
+					className="btn-toggle"
+					onClick={() => setIsOpen2((open) => !open)}
+				>
+					{isOpen2 ? "–" : "+"}
+				</button>
+				{isOpen2 && (
+					<>
+						<div className="summary">
+							<h2>Movies you watched</h2>
+							<div>
+								<p>
+									<span>#️⃣</span>
+									<span>{watched.length} movies</span>
+								</p>
+								<p>
+									<span>⭐️</span>
+									<span>{avgImdbRating}</span>
+								</p>
+								<p>
+									<span>🌟</span>
+									<span>{avgUserRating}</span>
+								</p>
+								<p>
+									<span>⏳</span>
+									<span>{avgRuntime} min</span>
+								</p>
+							</div>
+						</div>
+
+						<WatchedList watched={watched} />
+					</>
+				)}
+			</div>
+		</main>
+	);
+}
+
+function SearchBox({ isOpen, setIsOpen, list }) {
+	return (
+		<div className="box">
+			<button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
+				{isOpen ? "–" : "+"}
+			</button>
+			{isOpen && (
+				<ul className="list">
+					{list?.map((list) => (
+						<li key={list.imdbID}>
+							<img src={list.Poster} alt={`${list.Title} poster`} />
+							<h3>{list.Title}</h3>
+							<div>
+								<p>
+									<span>🗓</span>
+									<span>{list.Year}</span>
+								</p>
+							</div>
+						</li>
+					))}
+				</ul>
+			)}
+		</div>
+	);
+}
+
+function WatchedList({ watched }) {
+	return (
+		<ul className="list">
+			{watched.map((movie) => (
+				<li key={movie.imdbID}>
+					<img src={movie.Poster} alt={`${movie.Title} poster`} />
+					<h3>{movie.Title}</h3>
+					<div>
+						<p>
+							<span>⭐️</span>
+							<span>{movie.imdbRating}</span>
+						</p>
+						<p>
+							<span>🌟</span>
+							<span>{movie.userRating}</span>
+						</p>
+						<p>
+							<span>⏳</span>
+							<span>{movie.runtime} min</span>
+						</p>
+					</div>
+				</li>
+			))}
+		</ul>
+	);
+}
