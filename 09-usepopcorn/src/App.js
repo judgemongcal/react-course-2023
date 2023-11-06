@@ -63,7 +63,7 @@ export default function App() {
 
 			<Main>
 				{/* Using props to pass the children */}
-				<Box element={<SearchResultItem movies={movies} />} />
+				{/* <Box element={<SearchResultItem movies={movies} />} />
 				<Box
 					element={
 						<>
@@ -71,17 +71,17 @@ export default function App() {
 							<WatchedMovieList watched={watched} />
 						</>
 					}
-				/>
+				/> */}
 
 				{/* Using children */}
-				{/* <Box>
+				<Box>
 					<SearchResultItem movies={movies} />
 				</Box>
 
 				<Box>
 					<Summary watched={watched} />
 					<WatchedMovieList watched={watched} />
-				</Box> */}
+				</Box>
 			</Main>
 		</>
 	);
