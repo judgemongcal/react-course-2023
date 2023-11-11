@@ -1,7 +1,6 @@
 import "./index.css";
 import { useState } from "react";
 
-const ombdAPI = "f84fc31d";
 const tempMovieData = [
 	{
 		imdbID: "tt1375666",
@@ -55,10 +54,6 @@ const average = (arr) =>
 export default function App() {
 	const [movies, setMovies] = useState(tempMovieData);
 	const [watched, setWatched] = useState(tempWatchedData);
-
-	fetch(`http://www.omdbapi.com/?apikey=${ombdAPI}&s=interstellar`)
-		.then((res) => res.json())
-		.then((data) => console.log(data));
 	return (
 		<>
 			<NavBar>
@@ -142,16 +137,30 @@ function Button({ isOpen, setIsOpen }) {
 	);
 }
 
-function Box({ children }) {
+function Box({ element }) {
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (
 		<div className="box">
 			<Button isOpen={isOpen} setIsOpen={setIsOpen} />
-			{isOpen && children}
+			{isOpen && element}
 		</div>
 	);
 }
+
+// function WatchedBox({}) {
+// 	const [isOpen2, setIsOpen2] = useState(true);
+//
+
+// 	return (
+// 		<div className="box">
+// 			<Button isOpen={isOpen2} setIsOpen={setIsOpen2} />
+// 			{isOpen2 && (
+//
+// 			)}
+// 		</div>
+// 	);
+// }
 
 function SearchResultItem({ movies }) {
 	return (
