@@ -1,5 +1,5 @@
 import "./index.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ombdAPI = "f84fc31d";
 const tempMovieData = [
@@ -55,10 +55,22 @@ const average = (arr) =>
 export default function App() {
 	const [movies, setMovies] = useState(tempMovieData);
 	const [watched, setWatched] = useState(tempWatchedData);
+	const [isLoading, setIsLoading] = useState(false);
+	const query = "interstellar";
 
-	fetch(`http://www.omdbapi.com/?apikey=${ombdAPI}&s=interstellar`)
-		.then((res) => res.json())
-		.then((data) => console.log(data));
+	useEffect(function () {
+		async function fetchMovies() {
+			setIsLoading(true);
+			const res = await fetch(
+				`http://www.omdbapi.com/?apikey=${ombdAPI}&s=${query}`,
+			);
+			const data = await res.json();
+			setMovies(data.Search);
+			setIsLoading(false);
+		}
+		fetchMovies();
+	}, []);
+
 	return (
 		<>
 			<NavBar>
@@ -80,7 +92,7 @@ export default function App() {
 
 				{/* Using children */}
 				<Box>
-					<SearchResultItem movies={movies} />
+					{isLoading ? <Loader /> : <SearchResultItem movies={movies} />}
 				</Box>
 
 				<Box>
@@ -90,6 +102,10 @@ export default function App() {
 			</Main>
 		</>
 	);
+}
+
+function Loader() {
+	return <p className="loader">Loading...</p>;
 }
 
 function NavBar({ children }) {
