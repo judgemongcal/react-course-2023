@@ -53,11 +53,11 @@ const average = (arr) =>
 	arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-	const [movies, setMovies] = useState(tempMovieData);
-	const [watched, setWatched] = useState(tempWatchedData);
+	const [movies, setMovies] = useState([]);
+	const [watched, setWatched] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
-	const query = "interstellar";
+	const query = "whwhwhwhhww";
 
 	useEffect(function () {
 		async function fetchMovies() {
@@ -67,11 +67,19 @@ export default function App() {
 					`http://www.omdbapi.com/?apikey=${ombdAPI}&s=${query}`,
 				);
 
-				if (!res.ok)
+				if (!res.ok) {
 					throw new Error("Something went wrong with fetching your movies!");
+				}
+
 				const data = await res.json();
+
+				if (data.Response === "False") {
+					throw new Error("No results found!");
+				}
+
 				setMovies(data.Search);
 			} catch (err) {
+				console.log(err.message);
 				setError(err.message);
 			} finally {
 				setIsLoading(false);
