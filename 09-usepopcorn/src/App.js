@@ -65,6 +65,7 @@ export default function App() {
 			async function fetchMovies() {
 				try {
 					setIsLoading(true);
+					setError("");
 					const res = await fetch(
 						`http://www.omdbapi.com/?apikey=${ombdAPI}&s=${query}`,
 					);
@@ -81,10 +82,15 @@ export default function App() {
 
 					setMovies(data.Search);
 				} catch (err) {
-					setError(err.message);
+					setError("Error");
 				} finally {
 					setIsLoading(false);
 				}
+			}
+			if (query.length < 3) {
+				setMovies([]);
+				setError("");
+				return;
 			}
 			fetchMovies();
 		},
