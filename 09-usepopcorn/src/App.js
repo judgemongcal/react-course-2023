@@ -286,6 +286,7 @@ function MovieDetails({ selectedID, onClose, onAddWatched, watched }) {
 	const watchedUserRating = watched.find(
 		(movie) => movie.imdbID === selectedID,
 	)?.userRating;
+
 	function handleAdd() {
 		const newWatchedMovie = {
 			imdbID: selectedID,
@@ -301,6 +302,18 @@ function MovieDetails({ selectedID, onClose, onAddWatched, watched }) {
 
 		onClose();
 	}
+
+	useEffect(
+		function () {
+			if (!title) return;
+			document.title = `Movie | ${title}`;
+
+			return function () {
+				document.title = "usePopcorn";
+			};
+		},
+		[title],
+	);
 
 	useEffect(
 		function () {
