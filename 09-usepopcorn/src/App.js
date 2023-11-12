@@ -55,10 +55,14 @@ const average = (arr) =>
 export default function App() {
 	const [movies, setMovies] = useState([]);
 	const [watched, setWatched] = useState([]);
-	const [query, setQuery] = useState("");
+	const [query, setQuery] = useState("interstellar");
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
-	const tempQuery = "interstellar";
+	const [selectedID, setSelectedID] = useState(null);
+
+	function handleSelectMovie(id) {
+		setSelectedID(id);
+	}
 
 	useEffect(
 		function () {
@@ -97,6 +101,17 @@ export default function App() {
 		[query],
 	);
 
+	useEffect(
+		function () {
+			async function fetchMovieDetails(selectedID) {
+				try {
+					const res = await fetch(``);
+				} catch (err) {}
+			}
+		},
+		[selectedID],
+	);
+
 	return (
 		<>
 			<NavBar>
@@ -127,12 +142,20 @@ export default function App() {
 					)} */}
 					{isLoading && <Loader />}
 					{error && <Error e={error} />}
-					{!isLoading && !error && <SearchResultItem movies={movies} />}
+					{!isLoading && !error && (
+						<SearchResultItem movies={movies} onSelect={handleSelectMovie} />
+					)}
 				</Box>
 
 				<Box>
-					<Summary watched={watched} />
-					<WatchedMovieList watched={watched} />
+					{selectedID ? (
+						<MovieDetails selectedID={selectedID} />
+					) : (
+						<>
+							<Summary watched={watched} />
+							<WatchedMovieList watched={watched} />
+						</>
+					)}
 				</Box>
 			</Main>
 		</>
@@ -212,23 +235,27 @@ function Box({ children }) {
 	);
 }
 
-function SearchResultItem({ movies }) {
+function SearchResultItem({ movies, onSelect }) {
 	return (
 		<ul className="list">
-			{movies?.map((list) => (
-				<li key={list.imdbID}>
-					<img src={list.Poster} alt={`${list.Title} poster`} />
-					<h3>{list.Title}</h3>
+			{movies?.map((movie) => (
+				<li key={movie.imdbID} onClick={() => onSelect(movie.imdbID)}>
+					<img src={movie.Poster} alt={`${movie.Title} poster`} />
+					<h3>{movie.Title}</h3>
 					<div>
 						<p>
 							<span>🗓</span>
-							<span>{list.Year}</span>
+							<span>{movie.Year}</span>
 						</p>
 					</div>
 				</li>
 			))}
 		</ul>
 	);
+}
+
+function MovieDetails({ selectedID }) {
+	return <div className="details">{selectedID}</div>;
 }
 
 function Summary({ watched }) {
