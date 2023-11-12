@@ -105,17 +105,6 @@ export default function App() {
 		[query],
 	);
 
-	useEffect(
-		function () {
-			async function fetchMovieDetails(selectedID) {
-				try {
-					const res = await fetch(``);
-				} catch (err) {}
-			}
-		},
-		[selectedID],
-	);
-
 	return (
 		<>
 			<NavBar>
@@ -259,12 +248,60 @@ function SearchResultItem({ movies, onSelect }) {
 }
 
 function MovieDetails({ selectedID, onClose }) {
+	const [movie, setMovie] = useState({});
+
+	const {
+		Title: title,
+		Year: year,
+		Poster: poster,
+		Runtime: runtime,
+		imdbRating,
+		Plot: plot,
+		Released: released,
+		Actors: actors,
+		Director: director,
+		Genre: genre,
+	} = movie;
+
+	useEffect(function () {
+		async function getMovieDetails(selectedID) {
+			const res = await fetch(
+				`http://www.omdbapi.com/?apikey=${ombdAPI}&i=${selectedID}`,
+			);
+			const data = await res.json();
+			setMovie(data);
+		}
+
+		getMovieDetails(selectedID);
+	}, []);
+
 	return (
 		<>
-			<div className="details">{selectedID}</div>
-			<button className="btn-back" onClick={onClose}>
-				&larr;
-			</button>
+			<div className="details">
+				<header>
+					<button className="btn-back" onClick={onClose}>
+						&larr;
+					</button>
+					<img src={poster} alt={title} />
+					<div className="details-overview">
+						<h2>{title}</h2>
+						<p>
+							{released} &bull; {runtime}{" "}
+						</p>
+						<p>{genre}</p>
+						<p>
+							<span>⭐️</span> {imdbRating} IMDb Rating
+						</p>
+					</div>
+				</header>
+				<section>
+					<p>
+						<em>{plot}</em>
+					</p>
+					<p>Starring {actors}</p>
+					<p>Directed by {director}</p>
+				</section>
+			</div>
 		</>
 	);
 }
