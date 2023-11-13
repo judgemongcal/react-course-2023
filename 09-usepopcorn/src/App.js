@@ -115,6 +115,7 @@ export default function App() {
 				setError("");
 				return;
 			}
+			handleCloseMovie();
 			fetchMovies();
 
 			return function () {
@@ -312,6 +313,23 @@ function MovieDetails({ selectedID, onClose, onAddWatched, watched }) {
 
 		onClose();
 	}
+
+	useEffect(
+		function () {
+			function callback(e) {
+				if (e.code === "Escape") {
+					onClose();
+				}
+			}
+
+			document.addEventListener("keydown", callback);
+
+			return function () {
+				document.removeEventListener("keydown", callback);
+			};
+		},
+		[onClose],
+	);
 
 	useEffect(
 		function () {
