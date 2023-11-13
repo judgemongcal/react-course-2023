@@ -8,14 +8,17 @@ export default function App() {
 	const [startCur, setStartCur] = useState("USD");
 	const [resultCur, setResultCur] = useState("");
 	const [convertedVal, setConvertedVal] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 	useEffect(
 		function () {
 			async function fetchConversion() {
+				setIsLoading(true);
 				if (value && startCur && resultCur) {
 					const res = await fetch(
 						`https://api.frankfurter.app/latest?amount=${value}&from=${startCur}&to=${resultCur}`,
 					);
 					const data = await res.json();
+					setIsLoading(false);
 					setConvertedVal(data.rates[resultCur]);
 				}
 			}
@@ -56,7 +59,12 @@ export default function App() {
 				<option value="INR">INR</option>
 			</select>
 			<p>
-				{value < 1 ? "0" : convertedVal} {resultCur}
+				{value < 1
+					? "0"
+					: isLoading
+					? "Fetching from the API..."
+					: convertedVal}{" "}
+				{isLoading ? "" : resultCur}
 			</p>
 		</div>
 	);
