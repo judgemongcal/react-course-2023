@@ -2,7 +2,7 @@ import "./index.css";
 import { useState, useEffect } from "react";
 import StarRating from "./StarRating";
 
-const ombdAPI = "f84fc31d";
+const ombdAPI = "1c4e1f1b";
 const tempMovieData = [
 	{
 		imdbID: "tt1375666",
