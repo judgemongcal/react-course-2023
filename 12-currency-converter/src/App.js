@@ -12,8 +12,8 @@ export default function App() {
 	useEffect(
 		function () {
 			async function fetchConversion() {
-				setIsLoading(true);
 				if (value && startCur && resultCur) {
+					setIsLoading(true);
 					const res = await fetch(
 						`https://api.frankfurter.app/latest?amount=${value}&from=${startCur}&to=${resultCur}`,
 					);
@@ -22,6 +22,7 @@ export default function App() {
 					setConvertedVal(data.rates[resultCur]);
 				}
 			}
+			if (startCur === resultCur) return setConvertedVal(value);
 			fetchConversion();
 
 			// return function () {
@@ -39,10 +40,12 @@ export default function App() {
 				type="text"
 				value={value}
 				onChange={(e) => setValue(Number(e.target.value))}
+				disabled={isLoading}
 			/>
 			<select
 				value={startCur}
 				onChange={(inCurr) => setStartCur(inCurr.target.value)}
+				disabled={isLoading}
 			>
 				<option value="USD">USD</option>
 				<option value="EUR">EUR</option>
@@ -52,6 +55,7 @@ export default function App() {
 			<select
 				value={resultCur}
 				onChange={(resCurr) => setResultCur(resCurr.target.value)}
+				disabled={isLoading}
 			>
 				<option value="USD">USD</option>
 				<option value="EUR">EUR</option>
