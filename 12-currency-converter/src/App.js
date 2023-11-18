@@ -1,8 +1,6 @@
 import "./index.css";
 import { useEffect, useState } from "react";
 
-// `https://api.frankfurter.app/latest?amount=100&from=EUR&to=USD`
-
 export default function App() {
 	const [value, setValue] = useState(0);
 	const [startCur, setStartCur] = useState("USD");
@@ -24,12 +22,6 @@ export default function App() {
 			}
 			if (startCur === resultCur) return setConvertedVal(value);
 			fetchConversion();
-
-			// return function () {
-			// 	setValue(1);
-			// 	setStartCur("USD");
-			// 	setResultCur("");
-			// };
 		},
 		[value, startCur, resultCur],
 	);

@@ -43,26 +43,7 @@ export default function App() {
 			</NavBar>
 
 			<Main>
-				{/* Using props to pass the children */}
-				{/* <Box element={<SearchResultItem movies={movies} />} />
-				<Box
-					element={
-						<>
-							<Summary watched={watched} />
-							<WatchedMovieList watched={watched} />
-						</>
-					}
-				/> */}
-
-				{/* Using children */}
 				<Box>
-					{/* {isLoading ? (
-						<Loader />
-					) : Error ? (
-						<Error e={error} />
-					) : (
-						<SearchResultItem movies={movies} />
-					)} */}
 					{isLoading && <Loader />}
 					{error && <Error e={error} />}
 					{!isLoading && !error && (
