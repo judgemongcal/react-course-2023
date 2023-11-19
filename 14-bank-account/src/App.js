@@ -30,14 +30,19 @@ const initialState = {
 };
 
 function reducer(state, action) {
+	if (!state.isActive && action.type !== "openAcct") return state;
+
 	const existingLoan = initialState.loanCount > 0;
 	switch (action.type) {
 		case "openAcct":
 			return { ...state, balance: START_BAL, isActive: true };
 		case "deposit":
-			return { ...state, balance: state.balance + 150 };
+			return { ...state, balance: state.balance + action.payload };
 		case "withdraw":
-			return { ...state, balance: state.balance > 0 ? state.balance - 50 : 0 };
+			return {
+				...state,
+				balance: state.balance > 0 ? state.balance - action.payload : 0,
+			};
 		case "loan":
 			if (existingLoan) {
 				return;
@@ -70,38 +75,38 @@ export default function App() {
 			{loan > 0 && <p>Loan: {loan}</p>}
 
 			<p>
-				<button onClick={() => dispatch({ type: "openAcct" })} disabled={false}>
+				<button
+					onClick={() => dispatch({ type: "openAcct" })}
+					disabled={isActive}
+				>
 					Open account
 				</button>
 			</p>
 			<p>
 				<button
-					onClick={() => dispatch({ type: "deposit" })}
-					disabled={isActive ? false : true}
+					onClick={() => dispatch({ type: "deposit", payload: 150 })}
+					disabled={!isActive}
 				>
 					Deposit 150
 				</button>
 			</p>
 			<p>
 				<button
-					onClick={() => dispatch({ type: "withdraw" })}
-					disabled={isActive ? false : true}
+					onClick={() => dispatch({ type: "withdraw", payload: 50 })}
+					disabled={!isActive}
 				>
 					Withdraw 50
 				</button>
 			</p>
 			<p>
-				<button
-					onClick={() => dispatch({ type: "loan" })}
-					disabled={isActive ? false : true}
-				>
+				<button onClick={() => dispatch({ type: "loan" })} disabled={!isActive}>
 					Request a loan of 5000
 				</button>
 			</p>
 			<p>
 				<button
 					onClick={() => dispatch({ type: "payLoan" })}
-					disabled={isActive ? false : true}
+					disabled={!isActive}
 				>
 					Pay loan
 				</button>
@@ -109,7 +114,7 @@ export default function App() {
 			<p>
 				<button
 					onClick={() => dispatch({ type: "closeAcct" })}
-					disabled={isActive ? false : true}
+					disabled={!isActive}
 				>
 					Close account
 				</button>
