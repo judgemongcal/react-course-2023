@@ -8,3 +8,7 @@
 	justify-content: space-evenly;
 	list-style: none;
 }
+
+.nav :global(.active) {
+	background-color: green;
+}
