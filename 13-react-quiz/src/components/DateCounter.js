@@ -19,10 +19,6 @@ function reducer(state, action) {
 		default:
 			throw new Error("Unknown Error");
 	}
-
-	// if (action.type === "inc") return state + action.payload;
-	// if (action.type === "dec") return state - action.payload;
-	// if (action.type === "setCount") return action.payload;
 }
 
 function DateCounter() {

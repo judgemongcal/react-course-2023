@@ -45,7 +45,6 @@ export default function App() {
 	}
 
 	function handleSelectFriend(friend) {
-		// setSelectedFriend(friend);
 		setSelectedFriend((selected) =>
 			selected?.id === friend.id ? null : friend,
 		);
@@ -196,9 +195,6 @@ const FormSplitBill = ({ friend, onSubmit }) => {
 		if (!bill || !userExpense) return;
 
 		onSubmit(whoIsPaying === "user" ? friendExpense : -userExpense);
-		// setBill(0);
-		// setUserExpense(0);
-		// setWhoIsPaying("");
 	}
 
 	return (
