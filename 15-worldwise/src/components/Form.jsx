@@ -23,8 +23,9 @@ export function convertToEmoji(countryCode) {
 const BASE_URL = `https://api.bigdatacloud.net/data/reverse-geocode-client`;
 
 function Form() {
+	const navigate = useNavigate();
 	const [lat, lng] = useURLPosition();
-	const { createCity } = useCities();
+	const { createCity, isLoading } = useCities();
 	const [cityName, setCityName] = useState("");
 	const [country, setCountry] = useState("");
 	const [date, setDate] = useState(new Date());
@@ -66,7 +67,7 @@ function Form() {
 		[lat, lng],
 	);
 
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
 		if (!cityName || !date) return;
 
@@ -78,8 +79,8 @@ function Form() {
 			notes,
 			position: { lat, lng },
 		};
-		createCity(newCity);
-		console.log(newCity);
+		await createCity(newCity);
+		navigate("/app");
 	}
 
 	if (!lat && !lng)
@@ -88,7 +89,10 @@ function Form() {
 	if (geocodingError) return <Message>{geocodingError}</Message>;
 
 	return (
-		<form className={styles.form} onSubmit={handleSubmit}>
+		<form
+			className={`${styles.form} ${isLoading ? styles.loading : ""}`}
+			onSubmit={handleSubmit}
+		>
 			<div className={styles.row}>
 				<label htmlFor="cityName">City name</label>
 				<input
