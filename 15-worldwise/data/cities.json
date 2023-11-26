@@ -25,52 +25,16 @@
       "id": 17806751
     },
     {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 98443197
-    },
-    {
-      "cityName": "Castellfort",
+      "cityName": "Adzaneta",
       "country": "Spain",
       "emoji": "🇪🇸",
-      "date": "2023-11-26T07:34:31.547Z",
+      "date": "2023-11-26T08:00:35.237Z",
       "notes": "",
       "position": {
-        "lat": "40.48873742102282",
-        "lng": "-0.20874023437500003"
+        "lat": "40.25856876391262",
+        "lng": "-0.21423339843750003"
       },
-      "id": 98443198
-    },
-    {
-      "cityName": "Villamayor de Gallego",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2023-11-26T07:38:30.959Z",
-      "notes": "",
-      "position": {
-        "lat": "41.66470503009207",
-        "lng": "-0.7250976562500001"
-      },
-      "id": 98443199
-    },
-    {
-      "cityName": "Lake Mackay",
-      "country": "Australia",
-      "emoji": "🇦🇺",
-      "date": "2023-11-26T07:49:05.345Z",
-      "notes": "",
-      "position": {
-        "lat": "-21.94304553343818",
-        "lng": "130.42968750000003"
-      },
-      "id": 98443200
+      "id": 73930386
     }
   ]
 }
